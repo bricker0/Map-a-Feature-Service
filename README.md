@@ -87,7 +87,8 @@ I want to see if these trees are close to herritage landmarks. I can see that th
         var seattleLandmarks = L.esri.featureLayer({url: 'https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/55'}).addTo(map);
  ```
  
- I need popup information for this new layer too. I see what attributes are available and decide to share informaiton about the address and how long this site has been recognized. I add the following under the feature properties and });
+ I need popup information for this new layer too. I see what attributes are available and decide to share informaiton about the address and how long this site has been recognized. I add the following under the feature properties
+ 
   ```
   //popup information for landmarks
  
@@ -96,7 +97,8 @@ I want to see if these trees are close to herritage landmarks. I can see that th
        
           
          });       
-          ```
+          
+  ```
           The dates look bizarre so I decide remove that from the label, it is meaningless! 
           Now we should see trees and landmarks. Fun! Let's keep going!
           
@@ -104,8 +106,9 @@ I want to see if these trees are close to herritage landmarks. I can see that th
 
 I want to user to be able to change the basemaps if they would like. 
 
-Add the following into the style tag. Make sure you place it properly, after the } closeing the #map
- ```
+Add the following into the style tag. Make sure you place it properly, after the } the close of the #map
+
+```
 #basemaps-wrapper {
     position: absolute;
     top: 10px;
@@ -119,7 +122,8 @@ Add the following into the style tag. Make sure you place it properly, after the
   }
  ```
  
- Then we need to add the div
+ Then we need to add the div to place the dropdown within the frame. 
+ 
   ```
  <div id="basemaps-wrapper" class="leaflet-bar">
   <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
@@ -134,6 +138,7 @@ Add the following into the style tag. Make sure you place it properly, after the
   </select>
 </div>
  ```
+Looks great! 
 
-#That is all for now!
+##That is all for now
 Here you have learned to call data straight from an Esri server. Awesome! There are so many different ways to call feature layers. <a href="http://esri.github.io/esri-leaflet/tutorials/introduction-to-layer-types.html">See more examples here.</a> Enjoy!
