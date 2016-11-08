@@ -94,13 +94,13 @@ I want to see if these trees are close to herritage landmarks. I can see that th
  
   seattleLandmarks.bindPopup(function(feature) {
             return L.Util.template('<h3>{NAME}</h3><hr /><p>This landmark is located at {ADDRESS} and has been recognized since {EFF_DATE}.', feature.properties);
-       
-          
+                
          });       
           
   ```
-          The dates look bizarre so I decide remove that from the label, it is meaningless! 
-          Now we should see trees and landmarks. Fun! Let's keep going!
+
+The dates look bizarre so I decide remove that from the label, it is meaningless! 
+Now we should see trees and landmarks. Fun! Let's keep going!
           
 #Add basemap selector
 
