@@ -48,14 +48,14 @@ Start with the following:
     </script>    
 </body>
 </html>
-```
+``
 
-This will provide us with a Topographic basemap that fills the browser frame.
+This will provide us with a Topographic base map that fills the browser frame.
 
-Now let's add some data to feature! You have looked around what Seattle has to offer. As I meantioned, I am using the heratige tree data, so under the map variable and before I close the script tag I will name the variable seattleHeriageTrees to call the feature layer and add to the map. I add tags to remind me what the code does. 
+Now let's add some data to feature! You have looked around what Seattle has to offer. As I mentioned, I am using the heritage tree data, so under the map variable and before I close the script tag I will name the variable seattleHeriageTrees to call the feature layer and add to the map. I add tags to remind me what the code does. 
 
-```
- //set the tree variable call the server to then display or add to the map
+``
+ //set the tree variable to call the server to then display or add to the map
         var seattleHeritageTrees = L.esri.featureLayer({url: 'https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/33'}).addTo(map);
         
  ```
@@ -68,7 +68,7 @@ If we open the code now, you will see the default pin markers and nothing else. 
  ```
  Now the blue dots should be replaced with trees! 
  
-Next we need to add the popup window to say something meaningful. We do not want a laundry list of all the attributes that Esri Online provides. We only want to share what the end users need to see. I can see all the attributes available, from these I decide I only want to share. I decided to simply share the common and scientific names of the tree selected.
+Next, we need to add the popup window to say something meaningful. We do not want a laundry list of all the attributes that Esri Online provides. We only want to share what the end users need to see. I can see all the attributes available, from these, I decide I only want to share. I decided to simply share the common and scientific names of the tree selected.
 
 I added the following just under the add to map. Again, I added comments to remember what I am showing.
  ```
@@ -80,14 +80,14 @@ Hooray! Now when I click a tree, meaningful information pops up. This is fun so 
 
 #Add another layer 
 
-I want to see if these trees are close to herritage landmarks. I can see that there is a Landamarks layer. I will make a new variable called Seattle landmarks and add it to the map. I add this next bit just under the add to map. 
+I want to see if these trees are close to heritage landmarks. I can see that there is a Landmarks layer. I will make a new variable called Seattle landmarks and add it to the map. I add this next bit just under the add to map. 
 
  ```
  //set the Seattle Landmarks variable call the server to then display or add to the map
         var seattleLandmarks = L.esri.featureLayer({url: 'https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/55'}).addTo(map);
  ```
  
- I need popup information for this new layer too. I see what attributes are available and decide to share informaiton about the address and how long this site has been recognized. I add the following under the feature properties
+ I need popup information for this new layer too. I see what attributes are available and decide to share information about the address and how long this site has been recognized. I add the following under the feature properties
  
   ```
   //popup information for landmarks
@@ -99,12 +99,12 @@ I want to see if these trees are close to herritage landmarks. I can see that th
           
   ```
 
-The dates look bizarre so I decide remove that from the label, it is meaningless! 
+The dates look bizarre so I decide to remove that from the label, it is meaningless! 
 Now we should see trees and landmarks. Fun! Let's keep going!
           
-#Add basemap selector
+##Add base map selector
 
-I want to user to be able to change the basemaps if they would like. 
+I want to user to be able to change the base maps if they would like. 
 
 Add the following into the style tag. Make sure you place it properly, after the } the close of the #map
 
