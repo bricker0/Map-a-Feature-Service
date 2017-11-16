@@ -1,8 +1,8 @@
 # Seattle-Feature-Service
 Here I show how to call Seattle Open Data Esri Feature Services using Leaflet. 
-This example is based on this <a href= "http://esri.github.io/esri-leaflet/tutorials/working-with-feature-layers.html">Esri Custom popup tutorial.</a> 
+This example is based on this <a href= "http://esri.github.io/esri-leaflet/tutorials/working-with-feature-layers.html">Esri Custom popup tutorial.</a> and <a href="https://esri.github.io/esri-leaflet/examples/feature-layer-popups.html">this example</a>.
 
-Seattle offers many stylized feature services that you may incorporate use. I use <a href= "https://esri.github.io/esri-leaflet/examples/feature-layer-popups.html">Tree data found here </a>, but you can browse other <a href= "https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServerl">Seattle data here</a>. Before you commit to a dataset you can browse what is contains when you click ArcGIS Online MapViewer on the data page. 
+Seattle offers many stylized feature services that you may incorporate use. I use <a href= "https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/33">Tree data found here </a>, but you can browse other <a href= "https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer">Seattle data here</a>. Before you commit to a dataset you can browse what is contains when you click ArcGIS Online MapViewer on the data page. 
 
 ##Let's get started
 I first provide you basic with can see we have the basic HTML requirements, the title of the page is Calling Features with Leaflet, the map is stylized to fill the whole screen, the center of the map is set to Seattle and zoom level is appropriately framing Seattle.
