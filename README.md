@@ -50,27 +50,28 @@ Start with the following:
     </script>    
 </body>
 </html>
-``
+```
 
 This will provide us with a Topographic basemap that fills the browser frame.
 
 Now let's add some data to feature! You have looked around what Seattle has to offer. As I mentioned, I am using the heritage tree data, so under the map variable and before I close the script tag I will name the variable seattleHeriageTrees to call the feature layer and add to the map. I add tags to remind me what the code does. 
 
-``
+```
  //set the tree variable to call the server to then display or add to the map
         var seattleHeritageTrees = L.esri.featureLayer({url: 'https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/33'}).addTo(map);
         
  ```
 
-If we open the code now, you will see the default pin markers and nothing else. we want them to tell use something! We can see from the Esri page that the symbology has been set. We need to tell the browser to get that style. To do so we add the following to the head. 
+If we open the code now, you will see the default blue pin markers and nothing else. Often they have symbology attached and you will be able to see from the Esri REST page if the symbology has been set. We need to tell the browser to get that style. To do so we add the following js call just before you close to the head. 
 
  ```
-<!-- Load Esri Leaflet Renderers from CDN -->
-<script src="https://cdn.jsdelivr.net/leaflet.esri.renderers/1.0.1/esri-leaflet-renderers.js"></script>
+  <!-- Load Esri Leaflet Renderers -->
+  <!-- This will hook into Esri Leaflet to get renderer info when adding a feature layer -->
+    <script src="https://unpkg.com/esri-leaflet-renderers@2.0.6"></script>
  ```
- Now the blue dots should be replaced with trees! 
+Now the blue dots should be replaced with trees! 
  
-Next, we need to add the popup window to say something meaningful. We do not want a laundry list of all the attributes that Esri Online provides. We only want to share what the end users need to see. I can see all the attributes available, from these, I decide I only want to share. I decided to simply share the common and scientific names of the tree selected.
+Next, we need to add the popup window to say something meaningful. We do not want a laundry list of all the attributes that Esri Online provides. We only want to share what the end users need to see. I can see all the attributes available, from these, I decide I only want to share the common and scientific names of the tree selected.
 
 I added the following just under the add to map. Again, I added comments to remember what I am showing.
  ```
