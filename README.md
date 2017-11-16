@@ -1,4 +1,6 @@
 # Seattle-Feature-Service
+The City of Seattle offers some of its data as a REST service. Here I will show you how to create a mashup and call data directly from an Esri Server.
+
 Here I show how to call Seattle Open Data Esri Feature Services using Leaflet. 
 This example is based on this <a href= "http://esri.github.io/esri-leaflet/tutorials/working-with-feature-layers.html">Esri Custom popup tutorial.</a> and <a href="https://esri.github.io/esri-leaflet/examples/feature-layer-popups.html">this example</a>.
 
@@ -14,15 +16,15 @@ Start with the following:
 <html lang="en">
 <head>  
   <meta charset="utf-8">
-  <title>Calling Features with Leaflet</title>  
+  <title>Leaflet Map with a Feature Layer</title>  
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
   <!-- Load Leaflet from CDN-->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
 
   <!-- Load Esri Leaflet from CDN -->
-  <script src="https://cdn.jsdelivr.net/leaflet.esri/1.0.4/esri-leaflet.js"></script>
+  <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
 
   <style>
     html,
@@ -39,18 +41,18 @@ Start with the following:
     <div id="map"></div>
 
     <script>
-         var map = L.map('map').setView([47.6062, -122.3321], 12)
+        var map = L.map('map', {
+          center: [47.626, -122.337],
+          zoom: 13
         });
 
-        var esriStreets = L.esri.basemapLayer('Topographic').addTo(map);
-
-            
+        var esriStreets = L.esri.basemapLayer('Topographic').addTo(map);    
     </script>    
 </body>
 </html>
 ``
 
-This will provide us with a Topographic base map that fills the browser frame.
+This will provide us with a Topographic basemap that fills the browser frame.
 
 Now let's add some data to feature! You have looked around what Seattle has to offer. As I mentioned, I am using the heritage tree data, so under the map variable and before I close the script tag I will name the variable seattleHeriageTrees to call the feature layer and add to the map. I add tags to remind me what the code does. 
 
