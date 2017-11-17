@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>  
+  <meta charset="utf-8">
+  <title>REST Feature Layer</title>  
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  
+  <!-- Load Leaflet from CDN-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+
+  <!-- Load Esri Leaflet from CDN -->
+  <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
+
+  <!-- Load Esri Leaflet Renderers -->
+    <!-- This will hook into Esri Leaflet to get renderer info when adding a feature layer -->
+    <script src="https://unpkg.com/esri-leaflet-renderers@2.0.6"></script>
+
+
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+
+    }
+
+    #basemaps-wrapper {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 400;
+    background: white;
+    padding: 10px;
+  }
+  #basemaps {
+    margin-bottom: 5px;
+  }
+
+
+  </style>
+</head>
+<body>    
+    <div id="map"></div>
+     <div id="basemaps-wrapper" class="leaflet-bar">
+  <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+    <option value="DarkGray">Dark Gray</option>
+    <option value="Topographic">Topographic</option>
+    <option value="Streets">Streets</option>
+    <option value="NationalGeographic">National Geographic</option>
+    <option value="Oceans">Oceans</option>
+    <option value="Gray">Gray</option>
+    <option value="Imagery">Imagery</option>
+    <option value="ShadedRelief">Shaded Relief</option>
+  </select>
+</div>
+
+    <script>
+
+        var map = L.map('map', {
+          center: [47.626, -122.337],
+          zoom: 13
+        });
+
+        var layer = L.esri.basemapLayer('Topographic').addTo(map);
+  var layerLabels;
+
+  function setBasemap(basemap) {
+    if (layer) {
+      map.removeLayer(layer);
+    }
+
+    layer = L.esri.basemapLayer(basemap);
+
+    map.addLayer(layer);
+
+    if (layerLabels) {
+      map.removeLayer(layerLabels);
+    }
+
+    if (basemap === 'ShadedRelief'
+     || basemap === 'Oceans'
+     || basemap === 'Gray'
+     || basemap === 'DarkGray'
+     || basemap === 'Imagery'
+     || basemap === 'Terrain'
+   ) {
+      layerLabels = L.esri.basemapLayer(basemap + 'Labels');
+      map.addLayer(layerLabels);
+    }
+  }
+
+  function changeBasemap(basemaps){
+    var basemap = basemaps.value;
+    setBasemap(basemap);
+  }
+
+
+
+var layer = L.esri.basemapLayer('DarkGray').addTo(map);
+ 
+
+
+
+
+        //set the tree variable to call the server to then display or add to the map
+        var seattleHeritageTrees = L.esri.featureLayer({url: 'https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/33'}).addTo(map);
+
+//customize the popup, do you no present a laundry list of attributes, think about what the end user needs to know.
+
+      seattleHeritageTrees.bindPopup(function (layer) {
+      return L.Util.template('<p>{DESCRIPT}<br>Its scientific name is {SCINAME}.</p>', layer.feature.properties);
+       });
+
+
+//set the Seattle Landmarks variable call the server to then display or add to the map
+        var seattleLandmarks = L.esri.featureLayer({url: 'https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/55'}).addTo(map);
+
+        //popup information for landmarks
+ 
+            seattleLandmarks.bindPopup(function(layer) {
+            return L.Util.template('<h3>{NAME}</h3><hr /><p>This landmark is located at {ADDRESS}.', layer.feature.properties);
+                
+         });  
+
+
+    </script>    
+</body>
+</html>
