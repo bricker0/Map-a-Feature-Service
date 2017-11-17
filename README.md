@@ -2,7 +2,7 @@
 The City of Seattle offers some of its data as a REST service. Here I will show you how to create a mashup and call data directly from an Esri Server.
 
 Here I show how to call Seattle Open Data Esri Feature Services using Leaflet. 
-This example is based on this <a href= "http://esri.github.io/esri-leaflet/tutorials/working-with-feature-layers.html">Esri Custom popup tutorial.</a> and <a href="https://esri.github.io/esri-leaflet/examples/feature-layer-popups.html">this example</a>.
+This example is based on this <a href= "http://esri.github.io/esri-leaflet/tutorials/working-with-feature-layers.html">Esri Custom popup tutorial.</a> and <a href="https://esri.github.io/esri-leaflet/examples/feature-layer-popups.html">this example</a>. This is also a <a href= "https://github.com/Esri/esri-leaflet-renderers">helpful resource from ESRI</a> as the renders update frequently. 
 
 Seattle offers many stylized feature services that you may incorporate use. I use <a href= "https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/33">Tree data found here </a>, but you can browse other <a href= "https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer">Seattle data here</a>. Before you commit to a dataset you can browse what is contains when you click ArcGIS Online MapViewer on the data page. 
 
@@ -23,7 +23,7 @@ Start with the following:
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
 
-  <!-- Load Esri Leaflet from CDN -->
+  <!-- Load Esri Leaflet from Content Delivery Network (CDN) -->
   <script src="https://unpkg.com/esri-leaflet@2.0.4/dist/esri-leaflet.js"></script>
 
   <style>
@@ -76,8 +76,10 @@ Next, we need to add the popup window to say something meaningful. We do not wan
 I added the following just under the add to map. Again, I added comments to remember what I am showing.
  ```
  //customize the popup, do you no present a laundry list of attributes, think about what the end user needs to know.
-        seattleHeritageTrees.bindPopup(function(feature) {
-    return L.Util.template('<h3>{DESCRIPT }</h3><hr /><p> Its scientific name is {SCINAME}.', feature.properties);
+        
+ seattleHeritageTrees.bindPopup(function (layer) {
+    return L.Util.template('<p>{DESCRIPT}<br>Its scientific name is {SCINAME}.</p>', layer.feature.properties);
+  });
  ```
 Hooray! Now when I click a tree, meaningful information pops up. This is fun so I want to add more information. 
 
@@ -90,24 +92,25 @@ I want to see if these trees are close to heritage landmarks. I can see that the
         var seattleLandmarks = L.esri.featureLayer({url: 'https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/55'}).addTo(map);
  ```
  
- I need popup information for this new layer too. I see what attributes are available and decide to share information about the address and how long this site has been recognized. I add the following under the feature properties
+ I need popup information for this new layer too. I see what attributes are available and decide to share information about the address and how long this site has been recognized. I add the following under the feature properties.
  
   ```
   //popup information for landmarks
  
-  seattleLandmarks.bindPopup(function(feature) {
-            return L.Util.template('<h3>{NAME}</h3><hr /><p>This landmark is located at {ADDRESS} and has been recognized since {EFF_DATE}.', feature.properties);
+
+            seattleLandmarks.bindPopup(function(layer) {
+            return L.Util.template('<h3>{NAME}</h3><hr /><p>This landmark is located at {ADDRESS}.', layer.feature.properties);
                 
          });       
           
   ```
 
-The dates look bizarre so I decide to remove that from the label, it is meaningless! 
+
 Now we should see trees and landmarks. Fun! Let's keep going!
           
 ##Add base map selector
 
-I want to user to be able to change the base maps if they would like. 
+I want to user to be able to change the basemap. 
 
 Add the following into the style tag. Make sure you place it properly, after the } the close of the #map
 
@@ -125,7 +128,7 @@ Add the following into the style tag. Make sure you place it properly, after the
   }
  ```
  
- Then we need to add the div to place the dropdown within the frame. 
+ Then we need to add the div to place the dropdown within the map frame. Place this new div just under the map div and before you start writing your java script. 
  
   ```
  <div id="basemaps-wrapper" class="leaflet-bar">
@@ -141,7 +144,53 @@ Add the following into the style tag. Make sure you place it properly, after the
   </select>
 </div>
  ```
-Looks great! 
+ 
+ Now we have to 
+ 
+ Replace this code that renders the topographic Basemap...
+   ```
+   var esriStreets = L.esri.basemapLayer('Topographic').addTo(map); 
+   
+   ```
+   With the following code
+    ```
+   var var layer = L.esri.basemapLayer('Topographic').addTo(map);
+  var layerLabels;
+
+  function setBasemap(basemap) {
+    if (layer) {
+      map.removeLayer(layer);
+    }
+
+    layer = L.esri.basemapLayer(basemap);
+
+    map.addLayer(layer);
+
+    if (layerLabels) {
+      map.removeLayer(layerLabels);
+    }
+
+    if (basemap === 'ShadedRelief'
+     || basemap === 'Oceans'
+     || basemap === 'Gray'
+     || basemap === 'DarkGray'
+     || basemap === 'Imagery'
+     || basemap === 'Terrain'
+   ) {
+      layerLabels = L.esri.basemapLayer(basemap + 'Labels');
+      map.addLayer(layerLabels);
+    }
+  }
+
+  function changeBasemap(basemaps){
+    var basemap = basemaps.value;
+    setBasemap(basemap);
+  }
+
+var layer = L.esri.basemapLayer('Topographic').addTo(map);
+ 
+   ```
+Now it will look great! 
 
 ##That is all for now
-Here you have learned to call data straight from an Esri server. Awesome! There are so many different ways to call feature layers. <a href="http://esri.github.io/esri-leaflet/tutorials/introduction-to-layer-types.html">See more examples here.</a> Enjoy!
+Here you have learned to call data straight from an Esri server instead of having to download and host the data yourself. Awesome! There are so many different ways to call feature layers. <a href="http://esri.github.io/esri-leaflet/tutorials/introduction-to-layer-types.html">See more examples here.</a> Enjoy!
