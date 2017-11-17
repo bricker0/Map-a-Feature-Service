@@ -1,0 +1,8 @@
+title: Call-feature-service-Leaflet
+description: Here I explain how to call Seattle Open Data Esri Feature Services using Leaflet.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-architect
+
+gems:
+  - jekyll-mentions
