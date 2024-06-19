@@ -1,9 +1,8 @@
-# Seattle-Feature-Service
-The City of Seattle offers some of its data as a REST service. Here I will show you how to create a mashup and call data directly from an Esri Server. In this tutorial I will be using Seattle Open Data Esri Feature Services but you are welcome to find your own feature service. There are plenty out there!
+# Call any Feature Service
+The City of Seattle offers some of its data as a REST service. Here I will show you how to create a mashup and call data directly from an Esri Server. In this tutorial, I will be using Seattle Open Data Esri Feature Services but you are welcome to find your own feature service. There are plenty out there!
 
 This example is based on this <a href= "http://esri.github.io/esri-leaflet/tutorials/working-with-feature-layers.html">Esri Custom popup tutorial.</a> and <a href="https://esri.github.io/esri-leaflet/examples/feature-layer-popups.html">this example</a>. This is also a <a href= "https://github.com/Esri/esri-leaflet-renderers">helpful resource from ESRI</a> as the renders update frequently. 
 
-Here is the <a href = "http://faculty.washington.edu/bricker0/callfeature.html">example from 2016</a>. This tutorial was updated in November of 2017 for the Masters of Geospatial Technologies at the University of Washington Tacoma Web GIS course. Final output for this tutorial <a href="http://faculty.washington.edu/bricker0/service.html">can be found here</a>. 
 
 Seattle offers many stylized feature services that you may incorporate use. I use <a href= "https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer/33">Tree data found here </a>, but you can browse other <a href= "https://gisrevprxy.seattle.gov/arcgis/rest/services/ext/WM_CityGISLayers/MapServer">Seattle data here</a>. Before you commit to a dataset you can browse what is contains when you click ArcGIS Online MapViewer on the data page. 
 
